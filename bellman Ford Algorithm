@@ -1,0 +1,68 @@
+import java.util.*;
+class Node{
+    int v;int u; int w ;
+    Node(int u,int v,int w)
+    {
+        this.u = u;
+        this.v = v;
+        this.w = w;
+    }
+    Node(){}
+    int getV()
+    {return v;}
+    int getU()
+    {return u;}
+    int getWeigth()
+    {return w;}
+}
+public class BellmanFord {
+    static void bellmanFord(ArrayList<Node> a, int[]  dis)
+    {
+        for(int i=0;i<5;i++)
+        {
+            for(Node it:a)
+            {
+                if(dis[it.getU()]+ it.getWeigth()<dis[it.getV()])
+                {
+                    dis[it.getV()] = dis[it.getU()]+ it.getWeigth();
+                }
+            }
+        }
+        int mc = 0;
+        for(Node it:a)
+        {
+            if(dis[it.getU()]+ it.getWeigth()<dis[it.getV()])
+            {
+                mc=1;
+                System.out.println("Negative cycle");
+                break;
+            }
+        }
+        if(mc==0)
+        {
+            for(int i=0;i<6;i++)
+            {
+                System.out.print(dis[i]+" ");
+            }
+        }
+    }
+    public static void main(String arg[])
+    {
+        ArrayList<Node> a = new ArrayList<Node>();
+        a.add(new Node(3,2,6));
+        a.add(new Node(5,3,1));
+        a.add(new Node(0,1,5));
+        a.add(new Node(1,5,-3));
+        a.add(new Node(1,2,-2));
+        a.add(new Node(3,4,-2));
+        a.add(new Node(2,4,3));
+
+        int dis[]=new int[6];
+        for(int i=0;i<6;i++)
+        {
+            dis[i]=100000000;
+        }
+        dis[0]=0;
+        bellmanFord(a,dis);
+    }
+}
