@@ -1,0 +1,59 @@
+import java.util.*;
+
+public class PathExist {
+    static boolean findPath(ArrayList<ArrayList<Integer>> adj,int source,int destination)
+    {
+        boolean[] vis = new boolean[6];
+        vis[source]=true;
+
+        if(source==destination)
+        {
+            return true;
+        }
+        for(int i=1;i<5;i++)
+        {
+            for(int j:adj.get(source))
+            {
+                if(!vis[j])
+                {
+                    if(findPath(adj,j,destination))
+                        return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    public static void main(String arg[])
+    {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<ArrayList<Integer>>();
+        for(int i=0;i<5;i++)
+        {
+            adj.add(new ArrayList<>());
+        }
+        adj.get(0).add(1);
+        adj.get(0).add(2);
+        adj.get(1).add(0);
+        adj.get(1).add(2);
+        adj.get(1).add(3);
+        adj.get(1).add(4);
+        adj.get(2).add(0);
+        adj.get(2).add(1);
+        adj.get(2).add(3);
+        adj.get(3).add(1);
+        adj.get(3).add(2);
+        adj.get(3).add(4);
+        adj.get(4).add(1);
+        adj.get(4).add(3);
+        System.out.println(adj);
+        int source = 1;
+        int destination = 4;
+        boolean ans = findPath(adj,source,destination);
+        if(ans)
+        {
+            System.out.println("path exist");
+        }
+        else
+            System.out.println("no such path exist");
+    }
+}
