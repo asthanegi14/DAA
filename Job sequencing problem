@@ -1,0 +1,53 @@
+import java.util.*;
+class Job{
+    int deadline,profit;
+    char id;
+    Job(char id, int d,int p)
+    {
+        this.id = id;
+        deadline = d;
+        profit = p;
+    }
+    Job(){}
+}
+public class JobSequencing {
+    public static void main(String arg[])
+    {
+        ArrayList<Job> j = new ArrayList<Job>();
+        j.add(new Job('a',2,100));
+        j.add(new Job('b',1,19));
+        j.add(new Job('c',2,27));
+        j.add(new Job('d',1,25));
+        j.add(new Job('e',3,15));
+
+        Collections.sort(j,(a,b) -> b.profit - a.profit);
+
+        char x[] = new char[3];
+        boolean status[] = new boolean[3];
+        for(int i=0;i<3;i++)
+        {
+            status[i] = false;
+        }
+        int dMax = 3;
+        for(int i=1;i<5;i++)
+        {
+            int k = Math.min(dMax-1,j.get(i).deadline-1);
+            while(k>=0)
+            {
+                if(status[k]==false)
+                {
+                    status[k]=true;
+                    x[k]=j.get(i).id;
+                    break;
+                }
+                k--;
+            }
+        }
+        System.out.println("Maximum profit job is : ");
+        for(char it : x)
+        {
+            System.out.print(it+" ");
+        }
+        System.out.println();
+    }
+}
