@@ -1,0 +1,29 @@
+public class KnapsackByDp {
+    public static void main(String arg[])
+    {
+        int price[]={0,1,2,5,6};
+        int weight[]={0,2,3,4,5};
+        int m=8,n=4;
+        int [][]w=new int[5][9];
+        for(int i=0;i<=n;i++)
+        {
+            for(int j=0;j<=m;j++)
+            {
+                if(i==0||j==0)
+                {
+                    w[i][j]=0;
+                }
+                else if(weight[i]<=j)
+                {
+                    w[i][j]=Math.max(price[i]+w[i-1][j-weight[i]],w[i-1][j]);
+                }
+                else
+                {
+                    w[i][j]=w[i-1][j];
+                }
+            }
+        }
+        System.out.println("Answer = "+w[n][m]);
+    }
+}
+
