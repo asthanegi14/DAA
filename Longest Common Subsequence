@@ -1,0 +1,55 @@
+public class LongestCommonSubsequence {
+    static void sub(int[][] m, char s1[],char s2[],int size)
+    {
+        int index = size;
+        int i=5,j=7;
+        char[] fin = new char[size+1];
+        while(i>0 && j>0)
+        {
+            if(s1[i] == s2[j] && index>=0)
+            {
+                fin[index-1] = s1[i];
+                i--; j--; index--;
+            }
+            else if(m[i-1][j]>m[i][j-1])
+            { i--; }
+            else{ j--; }
+        }
+        System.out.print("Longest common subsequence are : ");
+        for(int k=0;k<size;k++)
+        {
+            System.out.print(fin[i]+" ");
+        }
+    }
+    public static void main(String arg[])
+    {
+       char s1[] = {'0','s','t','o','n','e'};
+       char s2[] = {'0','l','o','n','g','e','s','t'};
+        int m[][] = new int[6][8];
+
+        for(int i=0;i<6;i++)
+        {
+            for(int j=0;j<8;j++)
+            {
+                if(i==0 || j==0)
+                {
+                    m[i][j]=0;
+                }
+                else
+                {
+                    if(s1[i]==s2[i])
+                    {
+                        m[i][j] = m[i-1][j-1]+1;
+                    }
+                    else
+                    {
+                        m[i][j] = Math.max(m[i][j-1],m[i-1][j]);
+                    }
+                }
+            }
+        }
+        int s = m[5][7];
+        System.out.println("size of longest common subsequence is : "+s);
+        sub(m,s1,s2,s);
+    }
+}
