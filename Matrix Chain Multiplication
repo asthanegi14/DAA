@@ -1,0 +1,26 @@
+public class MatrixChainMultiplication {
+    static int matrix(int[] a,  int i, int n)
+    {
+        if(i==n)
+        {
+            return 0;
+        }
+        int min = Integer.MAX_VALUE;
+        for(int j=i;j<n;j++)
+        {
+            int count  = matrix(a,i,j)+matrix(a,j+1,n)+a[i-1]*a[j]*a[n];
+            if(count < min)
+            {
+                min=count;
+            }
+        }
+        return min;
+    }
+    public static void main(String arg[])
+    {
+        int[] a = {1,2,4,3,5,6,9};
+        int i=1 , n = a.length;
+
+        System.out.println("answer = "+matrix(a,i,n-1));
+    }
+}
